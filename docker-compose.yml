@@ -1,0 +1,21 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+    environment: 
+            - MONGO_DATABASE_USERNAME=productListUser
+            - MONGO_DATABASE_PASSWORD=productListPassword
+            - MONGO_DATABASE_NAME=promotions
+            - MONGO_INITDB_ROOT_USERNAME=productListUser
+            - MONGO_INITDB_ROOT_PASSWORD=productListPassword
+            - MONGO_INITDB_DATABASE=admin
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./tmp/mongoinit/home/mongodb:/home/mongodb
+      - ./tmp/mongoinit/:/docker-entrypoint-initdb.d/000_createUser.js
+
+  mongo_seed:
+    image: mongo_seed
+    depends_on:
+      - mongo

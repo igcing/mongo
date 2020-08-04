@@ -1,0 +1,3 @@
+FROM mongo
+COPY 001-products.json /001-products.json
+CMD mongoimport --host mongo --authenticationDatabase admin --db promotions -u productListUser -p productListPassword --collection products --type json --file /001-products.json --jsonArray
